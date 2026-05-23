@@ -397,6 +397,69 @@ TEST_F(IndigoCoreFormatsTest, smarts_load_save)
     ASSERT_EQ(smarts_in, smarts_out);
 }
 
+TEST_F(IndigoCoreFormatsTest, ket_atom_bond_color_roundtrip)
+{
+    // KET with one atom colored red (0xFF0000 = 16711680) and one bond colored blue (0x0000FF = 255)
+    const char* ket_json = R"({
+        "root": { "nodes": [{ "$ref": "mol0" }] },
+        "mol0": {
+            "type": "molecule",
+            "atoms": [
+                { "label": "C", "location": [0, 0, 0], "color": 16711680 },
+                { "label": "N", "location": [1.5, 0, 0] }
+            ],
+            "bonds": [
+                { "type": 1, "atoms": [0, 1], "color": 255 }
+            ]
+        }
+    })";
+
+    Molecule mol;
+    rapidjson::Document data;
+    ASSERT_FALSE(data.Parse(ket_json).HasParseError());
+    ASSERT_TRUE(data.HasMember("root"));
+
+    MoleculeJsonLoader loader(data);
+    ASSERT_NO_THROW(loader.loadMolecule(mol));
+
+    ASSERT_EQ(mol.vertexCount(), 2);
+    ASSERT_EQ(mol.edgeCount(), 1);
+
+    // Verify colors were loaded
+    ASSERT_TRUE(mol.hasAtomColor(0));
+    ASSERT_EQ(mol.getAtomColor(0), 16711680u); // red
+    ASSERT_FALSE(mol.hasAtomColor(1));          // N has no color
+
+    ASSERT_TRUE(mol.hasBondColor(0));
+    ASSERT_EQ(mol.getBondColor(0), 255u); // blue
+
+    // Re-save to KET and verify color fields appear in the output
+    Array<char> out;
+    ArrayOutput out_stream(out);
+    MoleculeJsonSaver saver(out_stream);
+    saver.saveMolecule(mol);
+    std::string json_out{out.ptr(), static_cast<std::size_t>(out.size())};
+
+    ASSERT_NE(json_out.find("\"color\""), std::string::npos);
+    ASSERT_NE(json_out.find("16711680"), std::string::npos);
+    ASSERT_NE(json_out.find("255"), std::string::npos);
+
+    // Reload the saved KET and verify colors survive the second pass
+    Molecule mol2;
+    rapidjson::Document data2;
+    ASSERT_FALSE(data2.Parse(json_out.c_str()).HasParseError());
+    ASSERT_TRUE(data2.HasMember("root"));
+
+    MoleculeJsonLoader loader2(data2);
+    ASSERT_NO_THROW(loader2.loadMolecule(mol2));
+
+    ASSERT_TRUE(mol2.hasAtomColor(0));
+    ASSERT_EQ(mol2.getAtomColor(0), 16711680u);
+    ASSERT_FALSE(mol2.hasAtomColor(1));
+    ASSERT_TRUE(mol2.hasBondColor(0));
+    ASSERT_EQ(mol2.getBondColor(0), 255u);
+}
+
 TEST_F(IndigoCoreFormatsTest, json_load_save)
 {
     QueryMolecule q_mol;

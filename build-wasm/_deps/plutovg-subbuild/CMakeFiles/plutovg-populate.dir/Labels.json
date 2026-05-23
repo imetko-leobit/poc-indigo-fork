@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/CMakeFiles/plutovg-populate"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/CMakeFiles/plutovg-populate.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/CMakeFiles/plutovg-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-build.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-download.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-install.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-test.rule"
+		},
+		{
+			"file" : "/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/plutovg-populate-prefix/src/plutovg-populate-stamp/plutovg-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"plutovg-populate"
+		],
+		"name" : "plutovg-populate"
+	}
+}

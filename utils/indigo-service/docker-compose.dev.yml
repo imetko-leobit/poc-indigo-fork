@@ -1,0 +1,16 @@
+version: "3.4"
+
+# Development compose file: exposes the Indigo backend directly at port 8002
+# so the Ketcher Vite dev server proxy can reach it without the nginx frontend.
+#
+# Usage:
+#   cd poc-indigo-fork/utils/indigo-service
+#   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build backend db
+#
+# Then start Ketcher in local-rest mode:
+#   cd poc-ketcher-fork/example && npm run dev:local-rest
+
+services:
+  backend:
+    ports:
+      - "8002:80"

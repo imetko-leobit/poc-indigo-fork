@@ -646,6 +646,12 @@ void MoleculeJsonSaver::saveBonds(BaseMolecule& mol, JsonWriter& writer)
                 }
             }
 
+            if (mol.hasBondColor(i))
+            {
+                writer.Key("color");
+                writer.Uint(mol.getBondColor(i));
+            }
+
             writer.EndObject();
         }
     }
@@ -1177,6 +1183,13 @@ void MoleculeJsonSaver::saveAtoms(BaseMolecule& mol, JsonWriter& writer)
                 }
             }
         }
+
+        if (mol.hasAtomColor(i))
+        {
+            writer.Key("color");
+            writer.Uint(mol.getAtomColor(i));
+        }
+
         writer.EndObject();
     }
 }

@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # EPAM Indigo
 
 Cheminformatics library suite: a C++ core (`core/`, `api/`) with Python/Java/.NET/R/WASM bindings, the **Bingo** chemistry cartridge for PostgreSQL/Oracle/MSSQL (`bingo/`), the Elasticsearch-backed **Bingo-Elastic** APIs (`bingo/bingo-elastic/`), and CLI/REST utilities (`utils/`). Cross-platform development is expected to happen inside `.devcontainer/` — native macOS toolchains drift fast.
@@ -7,10 +11,20 @@ Cheminformatics library suite: a C++ core (`core/`, `api/`) with Python/Java/.NE
 | Topic        | File                                       | What's inside                                                              |
 |--------------|--------------------------------------------|----------------------------------------------------------------------------|
 | Build        | [.claude/claude-docs/build.md](.claude/claude-docs/build.md)             | CMake configure/build, targets, WASM, dev container                        |
-| Testing      | [.claude/claude-docs/testing.md](.claude/claude-docs/testing.md)         | Indigo, Bingo (Postgres/Elastic/NoSQL), and indigo-service test workflows  |
+| Testing      | [.claude/claude-docs/testing.md](.claude/claude-docs/testing.md)         | C++ unit tests, Indigo, Bingo (Postgres/Elastic/NoSQL), and indigo-service |
 | Oracle       | [.claude/claude-docs/oracle.md](.claude/claude-docs/oracle.md)           | Oracle Docker harness, host-venv setup, extproc/install/cx_Oracle gotchas  |
 | Architecture | [.claude/claude-docs/architecture.md](.claude/claude-docs/architecture.md) | Bingo test adapter pattern, project layout                              |
 | Conventions  | [.claude/claude-docs/conventions.md](.claude/claude-docs/conventions.md) | Python style and linting tools                                             |
+
+## C++ Core Architecture
+
+`core/indigo-core/` is the algorithm layer. `api/c/` wraps it behind a C ABI; language bindings (`api/python/`, `api/java/`, etc.) load the shared library and call through that C layer. Format support follows a loader/saver pair pattern:
+
+- Molecule formats: `core/indigo-core/molecule/src/molecule_<format>_loader.cpp` + `_saver.cpp`
+- Reaction formats: `core/indigo-core/reaction/src/reaction_<format>_loader.cpp` + `_saver.cpp`
+- Format dispatch: `molecule_auto_loader.cpp` / `reaction_auto_loader.cpp` sniff the input and delegate to the right loader.
+
+When adding or fixing a format, both the molecule and reaction paths usually need the same change (they are parallel, not shared). The CDXML/CDX format involves three layers: the C++ loader/saver in `core/`, the render path in `core/render2d/src/render_cdxml.cpp`, and the C API surface in `api/c/indigo/src/`.
 
 ## Key Rules
 

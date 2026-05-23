@@ -550,6 +550,13 @@ namespace indigo
         bool isBondHighlighted(int idx);
         void highlightSubmolecule(BaseMolecule& sub, const int* mapping, bool entire);
 
+        void setAtomColor(int idx, uint32_t rgb);
+        uint32_t getAtomColor(int idx) const;
+        bool hasAtomColor(int idx) const;
+        void setBondColor(int idx, uint32_t rgb);
+        uint32_t getBondColor(int idx) const;
+        bool hasBondColor(int idx) const;
+
         void unselectAll();
         void selectAtom(int idx);
         void selectBond(int idx);
@@ -742,6 +749,9 @@ namespace indigo
         Array<int> _hl_bonds;
         Array<int> _sl_atoms;
         Array<int> _sl_bonds;
+        // Per-atom/bond custom colors stored as 0x00RRGGBB; -1 means unset
+        Array<int> _atom_colors;
+        Array<int> _bond_colors;
 
         Array<int> _bond_directions;
         std::map<int, KetObjectAnnotation> _bond_annotations;

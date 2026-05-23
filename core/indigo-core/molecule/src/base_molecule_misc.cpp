@@ -313,6 +313,42 @@ void BaseMolecule::selectSubmolecule(BaseMolecule& subgraph, const int* mapping,
     }
 }
 
+void BaseMolecule::setAtomColor(int idx, uint32_t rgb)
+{
+    _atom_colors.expandFill(idx + 1, -1);
+    _atom_colors[idx] = static_cast<int>(rgb);
+}
+
+uint32_t BaseMolecule::getAtomColor(int idx) const
+{
+    if (idx < _atom_colors.size() && _atom_colors[idx] != -1)
+        return static_cast<uint32_t>(_atom_colors[idx]);
+    return 0;
+}
+
+bool BaseMolecule::hasAtomColor(int idx) const
+{
+    return idx < _atom_colors.size() && _atom_colors[idx] != -1;
+}
+
+void BaseMolecule::setBondColor(int idx, uint32_t rgb)
+{
+    _bond_colors.expandFill(idx + 1, -1);
+    _bond_colors[idx] = static_cast<int>(rgb);
+}
+
+uint32_t BaseMolecule::getBondColor(int idx) const
+{
+    if (idx < _bond_colors.size() && _bond_colors[idx] != -1)
+        return static_cast<uint32_t>(_bond_colors[idx]);
+    return 0;
+}
+
+bool BaseMolecule::hasBondColor(int idx) const
+{
+    return idx < _bond_colors.size() && _bond_colors[idx] != -1;
+}
+
 int BaseMolecule::countSGroups()
 {
     return sgroups.getSGroupCount();

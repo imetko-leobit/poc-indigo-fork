@@ -1,0 +1,31 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/libpng/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/lunasvg/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-build/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-build/examples/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/cppcodec/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/inchi/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/rapidjson/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/zlib/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/tinyxml2/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/pixman/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/freetype/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/cairo/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/third_party/object_threadsafe/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/core/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/core/indigo-core/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/core/render2d/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/c/indigo/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/c/indigo-inchi/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/c/indigo-renderer/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/c/bingo-nosql/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/cpp/cmake_install.cmake",
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/wasm/indigo-ketcher/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

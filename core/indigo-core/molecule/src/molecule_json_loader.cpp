@@ -645,6 +645,11 @@ void MoleculeJsonLoader::parseAtoms(const rapidjson::Value& atoms, BaseMolecule&
                 mol.setAtomCIP(atom_idx, cip);
         }
 
+        if (a.HasMember("color") && a["color"].IsUint())
+        {
+            mol.setAtomColor(atom_idx, a["color"].GetUint());
+        }
+
         if (a.HasMember("queryProperties"))
         {
             if (_pqmol)
@@ -849,6 +854,10 @@ void MoleculeJsonLoader::parseBonds(const rapidjson::Value& bonds, BaseMolecule&
             {
                 // TODO:
             }
+        }
+        if (b.HasMember("color") && b["color"].IsUint())
+        {
+            mol.setBondColor(bond_idx, b["color"].GetUint());
         }
         if (b.HasMember("selected"))
         {

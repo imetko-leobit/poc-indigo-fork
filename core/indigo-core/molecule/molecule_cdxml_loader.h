@@ -140,6 +140,8 @@ namespace indigo
         AutoInt alt_group_id;
         AutoInt rg_index;
 
+        int color_index = -1;
+
         bool is_not_list;
         bool has_fragment;
         std::vector<AutoInt> element_list;
@@ -165,6 +167,7 @@ namespace indigo
         AutoInt topology;
         AutoInt reaction_center;
         bool swap_bond;
+        int color_index = -1;
     };
 
     struct CdxmlBracket

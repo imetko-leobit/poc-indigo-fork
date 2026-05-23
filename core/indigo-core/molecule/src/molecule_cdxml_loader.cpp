@@ -1013,6 +1013,12 @@ void MoleculeCdxmlLoader::_addAtomsAndBonds(BaseMolecule& mol, const std::vector
                 _pmol->setExplicitValence(atom_idx, atom.valence);
             _pmol->setAtomRadical(atom_idx, atom.radical);
             _pmol->setAtomIsotope(atom_idx, atom.isotope);
+            if (atom.color_index >= 2)
+            {
+                int tbl_idx = atom.color_index - 2;
+                if (tbl_idx < static_cast<int>(color_table.size()))
+                    _pmol->setAtomColor(atom_idx, color_table[tbl_idx]);
+            }
             if (atom.hydrogens >= 0)
                 _pmol->setImplicitH(atom_idx, atom.hydrogens);
             const int element = atom.element;
@@ -1075,6 +1081,12 @@ void MoleculeCdxmlLoader::_addAtomsAndBonds(BaseMolecule& mol, const std::vector
                     bond_idx = _addBond(*_pmol, bond, bond_second_it->second, bond_first_it->second);
                 else
                     bond_idx = _addBond(*_pmol, bond, bond_first_it->second, bond_second_it->second);
+                if (bond.color_index >= 2)
+                {
+                    int tbl_idx = bond.color_index - 2;
+                    if (tbl_idx < static_cast<int>(color_table.size()))
+                        _pmol->setBondColor(bond_idx, color_table[tbl_idx]);
+                }
             }
             else if (fn.type == kCDXNodeType_ExternalConnectionPoint && bond_second_it != _id_to_atom_idx.end())
             {
@@ -1428,6 +1440,16 @@ void MoleculeCdxmlLoader::_parseNode(CdxmlNode& node, BaseCDXElement& elem)
     auto geometry_lambda = [&node](const std::string& data) { node.geometry = KGeometryTypeNameToInt.at(data); };
     auto enhanced_stereo_type_lambda = [&node](const std::string& data) { node.enchanced_stereo = kCDXEnhancedStereoStrToID.at(data); };
 
+    auto node_color_lambda = [&node](const std::string& data) {
+        try
+        {
+            node.color_index = std::stoi(data);
+        }
+        catch (const std::exception&)
+        {
+        }
+    };
+
     std::unordered_map<std::string, std::function<void(const std::string&)>> node_dispatcher = {
         {"id", intLambda(node.id)},
         {"p", posLambda(node.pos)},
@@ -1446,7 +1468,8 @@ void MoleculeCdxmlLoader::_parseNode(CdxmlNode& node, BaseCDXElement& elem)
         {"Geometry", geometry_lambda},
         {"EnhancedStereoType", enhanced_stereo_type_lambda},
         {"EnhancedStereoGroupNum", intLambda(node.enhanced_stereo_group)},
-        {"AltGroupID", intLambda(node.alt_group_id)}};
+        {"AltGroupID", intLambda(node.alt_group_id)},
+        {"color", node_color_lambda}};
 
     applyDispatcher(*elem.firstProperty().get(), node_dispatcher);
     for (auto child_elem = elem.firstChildElement(); child_elem->hasContent(); child_elem = child_elem->nextSiblingElement())
@@ -1566,6 +1589,16 @@ void MoleculeCdxmlLoader::_parseBond(CdxmlBond& bond, BaseCDXProperty& prop)
         bond.topology = cdx_topology_to_topology.at(topology);
     };
 
+    auto bond_color_lambda = [&bond](const std::string& data) {
+        try
+        {
+            bond.color_index = std::stoi(data);
+        }
+        catch (const std::exception&)
+        {
+        }
+    };
+
     std::unordered_map<std::string, std::function<void(const std::string&)>> bond_dispatcher = {{"id", intLambda(bond.id)},
                                                                                                 {"B", intLambda(bond.be.first)},
                                                                                                 {"E", intLambda(bond.be.second)},
@@ -1574,7 +1607,8 @@ void MoleculeCdxmlLoader::_parseBond(CdxmlBond& bond, BaseCDXProperty& prop)
                                                                                                 {"Display2", bond_display2_lambda},
                                                                                                 {"BS", stereo_lambda},
                                                                                                 {"RxnParticipation", reaction_center_lambda},
-                                                                                                {"Topology", topology_lambda}};
+                                                                                                {"Topology", topology_lambda},
+                                                                                                {"color", bond_color_lambda}};
 
     applyDispatcher(prop, bond_dispatcher);
 }

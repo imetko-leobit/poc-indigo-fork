@@ -2,6 +2,20 @@
 
 How to run each of Indigo's test suites. Oracle has its own document because of the additional Docker harness and gotchas — see [claude-docs/oracle.md](oracle.md).
 
+## C++ unit tests (indigo-core-unit-tests)
+
+Requires `-DENABLE_TESTS=ON` at configure time:
+
+```bash
+cmake --preset indigo-debug -DENABLE_TESTS=ON
+cmake --build build --target indigo-core-unit-tests
+./build/core/indigo-core/tests/indigo-core-unit-tests
+# or via CTest
+ctest --test-dir build --output-on-failure
+```
+
+The test binary accepts `--gtest_filter=<pattern>` to run a single test case.
+
 ## Indigo integration tests
 
 Requires `indigo-python` to be built and installed first:

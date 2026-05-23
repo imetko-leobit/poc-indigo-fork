@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/_deps/plutovg-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
