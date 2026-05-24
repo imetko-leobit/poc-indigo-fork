@@ -100,6 +100,8 @@ void BaseMolecule::clear()
     Graph::clear();
     _hl_atoms.clear();
     _hl_bonds.clear();
+    _atom_colors.clear();
+    _bond_colors.clear();
     _bond_directions.clear();
     custom_collections.clear();
 
@@ -369,6 +371,8 @@ void BaseMolecule::_mergeWithSubmolecule_Sub(BaseMolecule& mol, const Array<int>
             highlightAtom(mapping[i]);
         if (mol._atom_annotations.count(i) > 0)
             _atom_annotations[mapping[i]] = mol._atom_annotations[i];
+        if (mol.hasAtomColor(i))
+            setAtomColor(mapping[i], mol.getAtomColor(i));
     }
 
     for (int j = mol.edgeBegin(); j != mol.edgeEnd(); j = mol.edgeNext(j))
@@ -378,6 +382,8 @@ void BaseMolecule::_mergeWithSubmolecule_Sub(BaseMolecule& mol, const Array<int>
             continue;
         reaction_bond_reacting_center[edge_idx] = mol.reaction_bond_reacting_center[j];
         _bond_directions[edge_idx] = mol.getBondDirection(j);
+        if (mol.hasBondColor(j))
+            setBondColor(edge_idx, mol.getBondColor(j));
 
         if (mol.isBondSelected(j))
             selectBond(edge_idx);
