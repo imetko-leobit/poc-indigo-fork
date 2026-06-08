@@ -845,3 +845,15 @@
 23	87	1779610864159029500	/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/CMakeFiles/cmake.verify_globs	58c26cfc5ff969dd
 108	126005	1779610864244225396	api/wasm/indigo-ketcher/CMakeFiles/indigo-ketcher-separate	bf2a3292ba626142
 108	126005	1779610864244225396	/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/wasm/indigo-ketcher/CMakeFiles/indigo-ketcher-separate	bf2a3292ba626142
+26	86	1779642020325170491	/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/CMakeFiles/cmake.verify_globs	58c26cfc5ff969dd
+135	10106	1779642020433638311	core/render2d/CMakeFiles/render2d.dir/src/render_cdxml.cpp.o	4d8cacbb292e10c6
+135	10482	1779642020433408613	core/indigo-core/CMakeFiles/indigo-core.dir/reaction/src/reaction_cdxml_saver.cpp.o	305c5bfcf79484fc
+10107	10497	1779642030406429878	lib/librender2d.a	56644cba2fe31c3d
+135	11561	1779642020433862211	api/c/indigo/CMakeFiles/indigo-object.dir/src/indigo_savers.cpp.o	f125daee1dcaab89
+134	12662	1779642020433016140	core/indigo-core/CMakeFiles/indigo-core.dir/molecule/src/molecule_cdxml_saver.cpp.o	524ed82914fa0f9
+12662	13121	1779642032961126663	lib/libindigo-core.a	171d4d3ffdbbff6e
+13121	13398	1779642033419981159	lib/libindigo-static.a	3a0fca3b025e55c5
+13398	183002	1779642033697103564	api/wasm/indigo-ketcher/CMakeFiles/indigo-ketcher-separate	bf2a3292ba626142
+13398	183002	1779642033697103564	/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/wasm/indigo-ketcher/CMakeFiles/indigo-ketcher-separate	bf2a3292ba626142
+13398	186838	1779642033697377692	api/wasm/indigo-ketcher/CMakeFiles/indigo-ketcher	b57de1dffa915940
+13398	186838	1779642033697377692	/Users/user/Documents/Enamine/poc-indigo-fork/build-wasm/api/wasm/indigo-ketcher/CMakeFiles/indigo-ketcher	b57de1dffa915940

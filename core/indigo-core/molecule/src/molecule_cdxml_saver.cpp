@@ -542,6 +542,29 @@ void MoleculeCdxmlSaver::addColorToTable(int id, float r, float g, float b)
     _color_table.push_back(color);
 }
 
+int MoleculeCdxmlSaver::_registerColor(uint32_t rgb)
+{
+    auto it = _color_table_map.find(rgb);
+    if (it != _color_table_map.end())
+        return it->second + 2;
+
+    float r = ((rgb >> 16) & 0xFF) / 255.0f;
+    float g = ((rgb >> 8) & 0xFF) / 255.0f;
+    float b = (rgb & 0xFF) / 255.0f;
+
+    int idx = static_cast<int>(_color_table.size());
+    _color_table_map.emplace(rgb, idx);
+    _color_table.push_back(rgb);
+
+    XMLElement* cel = _doc->NewElement("color");
+    _colortable->LinkEndChild(cel);
+    cel->SetAttribute("r", r);
+    cel->SetAttribute("g", g);
+    cel->SetAttribute("b", b);
+
+    return idx + 2;
+}
+
 void MoleculeCdxmlSaver::addDefaultFontTable()
 {
     Array<char> name;
@@ -568,13 +591,18 @@ void MoleculeCdxmlSaver::addDefaultFontTable()
 
 void MoleculeCdxmlSaver::addDefaultColorTable()
 {
-    Array<char> color;
-    ArrayOutput color_out(color);
+    _colortable = _doc->NewElement("colortable");
+    _root->LinkEndChild(_colortable);
 
-    color_out.printf(R"(<color r="0.5" g="0.5" b="0.5"/>)");
-    color.push(0);
-
-    addColorTable(color.ptr());
+    addColorToTable(-1, 1, 1, 1);   // white
+    addColorToTable(-1, 0, 0, 0);   // black
+    addColorToTable(-1, 1, 0, 0);   // red
+    addColorToTable(-1, 1, 1, 0);   // yellow
+    addColorToTable(-1, 0, 1, 0);   // green
+    addColorToTable(-1, 0, 1, 1);   // cyan
+    addColorToTable(-1, 0, 0, 1);   // blue
+    addColorToTable(-1, 1, 0, 1);   // magenta
+    addColorToTable(-1, 0.5f, 0.5f, 0.5f); // gray
 }
 
 int MoleculeCdxmlSaver::_getAttachmentPoint(BaseMolecule& mol, int atom_idx)
@@ -875,6 +903,9 @@ void MoleculeCdxmlSaver::addNodeToFragment(BaseMolecule& mol, XMLElement* fragme
 
         add_style_str(t, 3, 10, 96, buf.ptr());
     }
+
+    if (mol.hasAtomColor(atom_idx))
+        node->SetAttribute("color", _registerColor(mol.getAtomColor(atom_idx)));
 }
 
 void MoleculeCdxmlSaver::_collectSuperatoms(BaseMolecule& mol)
@@ -1013,6 +1044,9 @@ void MoleculeCdxmlSaver::addBondToFragment(BaseMolecule& mol, tinyxml2::XMLEleme
         if (topology > 0)
             bond->SetAttribute("Topology", topology_to_cdx_topology.at(topology));
     }
+
+    if (mol.hasBondColor(bond_idx))
+        bond->SetAttribute("color", _registerColor(mol.getBondColor(bond_idx)));
 }
 
 void MoleculeCdxmlSaver::addBondsToFragment(BaseMolecule& mol, tinyxml2::XMLElement* fragment)

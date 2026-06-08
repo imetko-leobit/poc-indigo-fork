@@ -1,0 +1,1 @@
+../build/indigo-ketcher.js

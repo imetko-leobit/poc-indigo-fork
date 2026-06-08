@@ -165,6 +165,8 @@ namespace indigo
 
         std::unique_ptr<tinyxml2::XMLDocument> _doc;
 
+        int _registerColor(uint32_t rgb);
+
     private:
         MoleculeCdxmlSaver(const MoleculeCdxmlSaver&); // no implicit copy
         std::unordered_map<int, int> _superatoms_atoms;
